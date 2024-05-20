@@ -24,7 +24,7 @@ from pytorch_lightning.loggers import CSVLogger
 
 import matgl
 from matgl.ext.pymatgen import Structure2Graph, get_element_list
-from matgl.graph.data import MGLDataset, MGLDataLoader, collate_fn_efs
+from matgl.graph.data import MGLDataset, MGLDataLoader, collate_fn_pes
 from matgl.models import M3GNet
 from matgl.utils.training import PotentialLightningModule
 
@@ -75,7 +75,7 @@ train_loader, val_loader, test_loader = MGLDataLoader(
     train_data=train_data,
     val_data=val_data,
     test_data=test_data,
-    collate_fn=collate_fn_efs,
+    collate_fn=collate_fn_pes,
     batch_size=2,
     num_workers=0,
 )

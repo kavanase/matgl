@@ -223,6 +223,6 @@ Dataloader for MEGNet training.
 
 Merge a list of dgl graphs to form a batch.
 
-### matgl.graph.data.collate_fn_efs(batch)
+### matgl.graph.data.collate_fn_pes(batch)
 
 Merge a list of dgl graphs to form a batch.

@@ -80,7 +80,7 @@ MatGL (Materials Graph Library) is a graph deep learning library for materials s
       * `MEGNetDataset.save()`
     * `MGLDataLoader()`
     * `collate_fn()`
-    * `collate_fn_efs()`
+    * `collate_fn_pes()`
 * [matgl.layers package](matgl.layers.md)
   * matgl.layers._activations module
     * `ActivationFunction`
