@@ -136,6 +136,7 @@ class MGLDataset(DGLDataset):
         save_cache: bool = True,
         raw_dir: str | None = None,
         save_dir: str | None = None,
+        **kwargs,
     ):
         """
         Args:
@@ -163,6 +164,8 @@ class MGLDataset(DGLDataset):
                 stores the input data.
                 Default: ~/.dgl/
             save_dir : directory to save the processed dataset. Default: same as raw_dir.
+            **kwargs: Additional kwargs to pass to ``dgl.data.DGLDataset``, such as ``force_reload``,
+            ``verbose`` etc.
         """
         self.filename = filename
         self.filename_lattice = filename_lattice
@@ -180,7 +183,7 @@ class MGLDataset(DGLDataset):
         self.graph_labels = graph_labels
         self.clear_processed = clear_processed
         self.save_cache = save_cache
-        super().__init__(name=name, raw_dir=raw_dir, save_dir=save_dir)
+        super().__init__(name=name, raw_dir=raw_dir, save_dir=save_dir, **kwargs)
 
     def has_cache(self) -> bool:
         """Check if the dgl_graph.bin exists or not."""
