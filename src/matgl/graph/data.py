@@ -208,7 +208,10 @@ class MGLDataset(DGLDataset):
             graphs.append(graph)
             lattices.append(lattice)
             state_attrs.append(state_attr)
-            graph.ndata["pos"] = torch.tensor(structure.cart_coords)
+            try:
+                graph.ndata["pos"] = torch.tensor(structure.cart_coords)  # pymatgen Structure
+            except AttributeError:
+                graph.ndata["pos"] = torch.tensor(structure.positions)  # ase Atoms
             graph.edata["pbc_offshift"] = torch.matmul(graph.edata["pbc_offset"], lattice[0])
             bond_vec, bond_dist = compute_pair_vector_and_distance(graph)
             graph.edata["bond_vec"] = bond_vec
