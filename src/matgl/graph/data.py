@@ -223,6 +223,10 @@ class MGLDataset(DGLDataset):
                 line_graphs.append(line_graph)
             graph.ndata.pop("pos")
             graph.edata.pop("pbc_offshift")
+
+            if self.clear_processed:
+                self.structures[idx] = "Processed"  # remove the structure from memory
+
         if self.graph_labels is not None:
             state_attrs = torch.tensor(self.graph_labels).long()
         else:
