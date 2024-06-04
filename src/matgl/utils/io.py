@@ -185,12 +185,13 @@ class RemoteFile:
         self.stream.close()
 
 
-def load_model(path: Path, **kwargs):
+def load_model(path: Path, load_kwargs: dict | None = None, **kwargs):
     r"""Convenience method to load a model from a directory or name.
 
     Args:
         path (str|path): Path to saved model or name of pre-trained model. The search order is path, followed by
             download from PRETRAINED_MODELS_BASE_URL (with caching).
+        load_kwargs: Additional kwargs passed to the load method of the model. E.g., ``map_location`` etc.
         **kwargs: Additional kwargs passed to RemoteFile class. E.g., a useful one might be force_download if you
             want to update the model.
 
@@ -198,7 +199,7 @@ def load_model(path: Path, **kwargs):
         Returns: model_object if include_json is false. (model_object, dict) if include_json is True.
     """
     path = Path(path)
-
+    load_kwargs = {} if load_kwargs is None else load_kwargs
     fpaths = _get_file_paths(path, **kwargs)
 
     try:
@@ -209,7 +210,7 @@ def load_model(path: Path, **kwargs):
 
             mod = __import__(modname, globals(), locals(), [classname], 0)
             cls_ = getattr(mod, classname)
-            return cls_.load(fpaths, **kwargs)
+            return cls_.load(fpaths, **load_kwargs)
     except BaseException as err:
         raise ValueError(
             "Bad serialized model or bad model name. It is possible that you have an older model cached. Please "
