@@ -264,10 +264,11 @@ class MGLDataset(DGLDataset):
     def load(self):
         """Load dgl graphs from files."""
         self.graphs, _ = load_graphs(os.path.join(self.save_path, self.filename))
-        self.lattices = torch.load(os.path.join(self.save_path, self.filename_lattice))
+        self.lattices = torch.load(os.path.join(self.save_path, self.filename_lattice), map_location="cpu")
         if self.include_line_graph:
             self.line_graphs, _ = load_graphs(os.path.join(self.save_path, self.filename_line_graph))
-        self.state_attr = torch.load(os.path.join(self.save_path, self.filename_state_attr))
+        self.state_attr = torch.load(os.path.join(self.save_path, self.filename_state_attr),
+                                     map_location="cpu")
         with open(os.path.join(self.save_path, self.filename_labels)) as f:
             self.labels = json.load(f)
 
